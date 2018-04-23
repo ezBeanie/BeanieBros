@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -34,6 +35,7 @@ import com.beanie.beaniebros.tools.B2WorldCreator;
 public class PlayScreen implements Screen, InputProcessor {
 
     private BeanieBros game;
+    private TextureAtlas atlas;
 
     private SpriteBatch spriteBatch;
     private OrthographicCamera camera;
@@ -56,6 +58,7 @@ public class PlayScreen implements Screen, InputProcessor {
     public PlayScreen(BeanieBros game, SpriteBatch spriteBatch) {
         this.game = game;
         this.spriteBatch = spriteBatch;
+        atlas = new TextureAtlas("sprites.pack");
 
         Gdx.input.setInputProcessor(this);
 
@@ -69,13 +72,17 @@ public class PlayScreen implements Screen, InputProcessor {
         renderer = new OrthogonalTiledMapRenderer(map, 1 / BeanieBros.PIXEL_PER_METER);
 
         world = new World(new Vector2(0.0f,-30.0f), true);
-        player = new Mario(world);
+        player = new Mario(world, this);
 
         debugRenderer = new Box2DDebugRenderer();
 
         new B2WorldCreator(world, map);
 
         camera.position.set(viewport.getWorldWidth()/2, viewport.getWorldHeight()/2, 0);
+    }
+
+    public TextureAtlas getAtlas() {
+        return atlas;
     }
 
     @Override
@@ -102,6 +109,8 @@ public class PlayScreen implements Screen, InputProcessor {
         handleInput();
         world.step(1/60.0f, 6, 2);
 
+        player.update(delta);
+
         camera.position.x = player.body.getPosition().x;
 
         camera.update();
@@ -115,14 +124,15 @@ public class PlayScreen implements Screen, InputProcessor {
 
         //spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
-
         renderer.render();
 
-        debugRenderer.render(world, camera.combined);
+        //debugRenderer.render(world, camera.combined);
 
         hud.stage.draw();
 
+        spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
+        player.draw(spriteBatch);
         //spriteBatch.draw(img,0 - img.getWidth()/2,0 - img.getHeight()/2);
         spriteBatch.end();
 
