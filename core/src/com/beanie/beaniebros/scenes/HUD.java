@@ -23,6 +23,7 @@ public class HUD {
     private Viewport viewport;
     private OrthographicCamera camera;
     private BitmapFont font;
+    private Label.LabelStyle labelStyle;
 
     private int worldTime;
     private float timeCount;
@@ -42,6 +43,7 @@ public class HUD {
 
         camera = new OrthographicCamera();
         font = new BitmapFont(Gdx.files.internal("font.fnt"));
+        labelStyle = new Label.LabelStyle(font, Color.WHITE);
         viewport = new FitViewport(BeanieBros.VIEW_WIDTH, BeanieBros.VIEW_HEIGHT, camera);
         stage = new Stage(viewport, spriteBatch);
 
@@ -50,14 +52,12 @@ public class HUD {
         table.setFillParent(true);
         //table.setDebug(true);
 
-        countdownLabel = new Label(String.format("%03d", worldTime), new Label.LabelStyle(font,
-                Color.WHITE));
-        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(font,
-                Color.WHITE));
-        timeLabel = new Label("TIME", new Label.LabelStyle(font, Color.WHITE));
-        levelLabel = new Label("1-1", new Label.LabelStyle(font, Color.WHITE));
-        worldLabel = new Label("WORLD", new Label.LabelStyle(font, Color.WHITE));
-        marioLabel = new Label("MARIO", new Label.LabelStyle(font, Color.WHITE));
+        countdownLabel = new Label(String.format("%03d", worldTime), labelStyle);
+        scoreLabel = new Label(String.format("%06d", score), labelStyle);
+        timeLabel = new Label("TIME", labelStyle);
+        levelLabel = new Label("1-1", labelStyle);
+        worldLabel = new Label("WORLD", labelStyle);
+        marioLabel = new Label("MARIO", labelStyle);
 
         table.add().width(24);
         table.add(marioLabel).expandX().padTop(8).left();

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="240" height="16" tilewidth="16" tileheight="16" infinite="0" nextobjectid="12">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <layer name="background" width="240" height="16">
+  <data encoding="base64" compression="zlib">
+   eJztwzEJAAAMA7Ay/4bqrjZ2JJBeUlVVVVVVVVVVVVVVVVVV9cUBTRH1lw==
+  </data>
+ </layer>
+ <layer name="graphics" width="240" height="16">
+  <data encoding="base64" compression="zlib">
+   eJzt1z0KwkAQgNHd7bRTK6+gnT/xpOpN1OM5hYFgoSSELOh7MCQkW0zzBZISAAAwpXNJ6RJzLbU3Afq6Rbf3mId+AaCKde0FAAAAYETv/7nl9ax7BaaxzLU3AIZYRLu7mFXPhvs0P4uzc98IGFXb7j7m8KXhY7xrYk75c/Pdc61N3G/1C6PKPzLwj2p3p18Y7glWjggS
+  </data>
+ </layer>
+ <objectgroup name="ground">
+  <object id="1" x="0" y="224" width="608" height="32"/>
+ </objectgroup>
+ <objectgroup name="pipes">
+  <object id="2" x="416" y="192" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="bricks">
+  <object id="3" x="288" y="160" width="16" height="16"/>
+  <object id="4" x="320" y="160" width="16" height="16"/>
+  <object id="5" x="352" y="160" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="blocks">
+  <object id="6" x="224" y="160" width="16" height="16"/>
+  <object id="7" x="304" y="160" width="16" height="16"/>
+  <object id="8" x="336" y="160" width="16" height="16"/>
+  <object id="9" x="320" y="96" width="16" height="16"/>
+ </objectgroup>
+</map>
