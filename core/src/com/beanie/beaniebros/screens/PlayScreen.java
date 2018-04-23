@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.beanie.beaniebros.BeanieBros;
 
@@ -15,13 +18,17 @@ import com.beanie.beaniebros.BeanieBros;
 public class PlayScreen implements Screen {
 
     private BeanieBros game;
+    private SpriteBatch spriteBatch;
     private OrthographicCamera camera;
     private Viewport viewport;
+    private Texture img;
 
-    public PlayScreen(BeanieBros game) {
+    public PlayScreen(BeanieBros game, SpriteBatch spriteBatch) {
         this.game = game;
+        this.spriteBatch = spriteBatch;
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(1280,720,camera);
+        viewport = new FitViewport(BeanieBros.VIEW_WIDTH,BeanieBros.VIEW_HEIGTH, camera);
+        img = new Texture("badlogic.jpg");
     }
 
     @Override
@@ -33,6 +40,12 @@ public class PlayScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.begin();
+        spriteBatch.draw(img,0 - img.getWidth()/2,0 - img.getHeight()/2);
+        spriteBatch.end();
+
     }
 
     @Override
