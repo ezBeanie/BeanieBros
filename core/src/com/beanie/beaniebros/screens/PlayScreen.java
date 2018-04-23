@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.beanie.beaniebros.BeanieBros;
+import com.beanie.beaniebros.scenes.HUD;
 
 /**
  * Created by janu2 on 17/04/2018.
@@ -21,13 +21,18 @@ public class PlayScreen implements Screen {
     private SpriteBatch spriteBatch;
     private OrthographicCamera camera;
     private Viewport viewport;
+    private HUD hud;
+
     private Texture img;
 
     public PlayScreen(BeanieBros game, SpriteBatch spriteBatch) {
         this.game = game;
         this.spriteBatch = spriteBatch;
+
         camera = new OrthographicCamera();
-        viewport = new FitViewport(BeanieBros.VIEW_WIDTH,BeanieBros.VIEW_HEIGTH, camera);
+        viewport = new FitViewport(BeanieBros.VIEW_WIDTH,BeanieBros.VIEW_HEIGHT, camera);
+        hud = new HUD(spriteBatch);
+
         img = new Texture("badlogic.jpg");
     }
 
@@ -41,9 +46,11 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        spriteBatch.setProjectionMatrix(camera.combined);
+        //spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
         spriteBatch.begin();
-        spriteBatch.draw(img,0 - img.getWidth()/2,0 - img.getHeight()/2);
+        //spriteBatch.draw(img,0 - img.getWidth()/2,0 - img.getHeight()/2);
         spriteBatch.end();
 
     }

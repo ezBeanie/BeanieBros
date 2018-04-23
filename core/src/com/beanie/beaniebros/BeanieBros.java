@@ -8,7 +8,7 @@ public class BeanieBros extends Game {
 	private SpriteBatch spriteBatch;
 
 	public static final int  VIEW_WIDTH = 256;
-	public static final int  VIEW_HEIGTH = 224;
+	public static final int VIEW_HEIGHT = 224;
 
 	@Override
 	public void create () {
