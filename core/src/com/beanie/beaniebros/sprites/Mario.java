@@ -3,9 +3,11 @@ package com.beanie.beaniebros.sprites;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -23,6 +25,10 @@ public class Mario extends Sprite {
         JUMPING,
         STANDING,
         RUNNING
+    }
+
+    public enum BodyParts {
+        HEAD
     }
 
     public State currentState;
@@ -54,7 +60,7 @@ public class Mario extends Sprite {
         marioRun = new Animation(0.1f, frames);
         frames.clear();
 
-        marioStand = new TextureRegion(getTexture(),0,11,16,16);
+        marioStand = new TextureRegion(getTexture(),1,11,16,16);
         marioJump = new TextureRegion(getTexture(),80,11,16,16);
         marioFall = new TextureRegion(getTexture(), 48,11,16,16);
 
@@ -134,10 +140,20 @@ public class Mario extends Sprite {
 
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(7.5f / BeanieBros.PIXEL_PER_METER);
+        circleShape.setRadius(7f / BeanieBros.PIXEL_PER_METER);
+        fixtureDef.filter.categoryBits = BeanieBros.MARIO_BIT;
+        fixtureDef.filter.maskBits = BeanieBros.DEFAULT_BIT | BeanieBros.COIN_BIT | BeanieBros.BRICK_BIT | BeanieBros.BLOCK_BIT;
 
         fixtureDef.shape = circleShape;
         body.createFixture(fixtureDef);
+
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / BeanieBros.PIXEL_PER_METER, 7.0f / BeanieBros.PIXEL_PER_METER),
+                new Vector2(2 / BeanieBros.PIXEL_PER_METER, 7.0f / BeanieBros.PIXEL_PER_METER));
+        fixtureDef.shape = head;
+        fixtureDef.isSensor = true;
+
+        body.createFixture(fixtureDef).setUserData(BodyParts.HEAD);
     }
 
 }

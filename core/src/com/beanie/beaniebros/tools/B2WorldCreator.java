@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.beanie.beaniebros.BeanieBros;
+import com.beanie.beaniebros.sprites.Block;
 import com.beanie.beaniebros.sprites.Brick;
 import com.beanie.beaniebros.sprites.Coin;
 
@@ -63,17 +64,7 @@ public class B2WorldCreator {
 
         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bodyDef.type = BodyDef.BodyType.StaticBody;
-            bodyDef.position.set((rect.getX() + rect.getWidth()/2) / BeanieBros.PIXEL_PER_METER,
-                    (rect.getY() + rect.getHeight()/2) / BeanieBros.PIXEL_PER_METER);
-
-            body = world.createBody(bodyDef);
-
-            shape.setAsBox((rect.getWidth()/2) / BeanieBros.PIXEL_PER_METER,
-                    (rect.getHeight()/2) / BeanieBros.PIXEL_PER_METER);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
+            new Block(world, map, rect);
         }
 
         for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {

@@ -113,6 +113,7 @@ public class PlayScreen implements Screen, InputProcessor {
         world.step(1/60.0f, 6, 2);
 
         player.update(delta);
+        hud.update(delta);
 
         camera.position.x = player.body.getPosition().x;
 
@@ -128,7 +129,7 @@ public class PlayScreen implements Screen, InputProcessor {
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         renderer.render();
 
-        //debugRenderer.render(world, camera.combined);
+        debugRenderer.render(world, camera.combined);
 
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();

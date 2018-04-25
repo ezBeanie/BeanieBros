@@ -29,10 +29,10 @@ public class HUD implements Disposable {
 
     private int worldTime;
     private float timeCount;
-    private int score;
+    private static int score;
 
     Label countdownLabel;
-    Label scoreLabel;
+    static Label scoreLabel;
     Label timeLabel;
     Label levelLabel;
     Label worldLabel;
@@ -76,6 +76,20 @@ public class HUD implements Disposable {
         table.add().width(25);
 
         stage.addActor(table);
+    }
+
+    public void update(float delta) {
+        timeCount += delta;
+        if(timeCount >= 1) {
+            worldTime--;
+            countdownLabel.setText(String.format("%03d", worldTime));
+            timeCount = 0;
+        }
+    }
+
+    public static void addScore(int value) {
+        score += value;
+        scoreLabel.setText(String.format("%06d", score));
     }
 
     @Override
