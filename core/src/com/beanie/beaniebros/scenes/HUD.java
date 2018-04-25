@@ -65,7 +65,6 @@ public class HUD implements Disposable {
 
         table.add().width(24);
         table.add(marioLabel).expandX().padTop(8).left();
-        table.add()
         table.add(worldLabel).expandX().padTop(8).center();
         table.add(timeLabel).expandX().padTop(8).right();
         table.add().width(25);
