@@ -71,7 +71,7 @@ public class PlayScreen implements Screen, InputProcessor {
         map = mapLoader.load("level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / BeanieBros.PIXEL_PER_METER);
 
-        world = new World(new Vector2(0.0f,-30.0f), true);
+        world = new World(new Vector2(0.0f,-30.01f), true);
         player = new Mario(world, this);
 
         debugRenderer = new Box2DDebugRenderer();
@@ -95,11 +95,11 @@ public class PlayScreen implements Screen, InputProcessor {
     }
 
     public void handleInput() {
-        if(rightPressed && player.body.getLinearVelocity().x <= 4) {
+        if(rightPressed && player.body.getLinearVelocity().x <= 5) {
             player.body.applyLinearImpulse(new Vector2(1.0f, 0.0f),
                     player.body.getWorldCenter(), true);
         }
-        if(leftPressed && player.body.getLinearVelocity().x >= -4) {
+        if(leftPressed && player.body.getLinearVelocity().x >= -5) {
             player.body.applyLinearImpulse(new Vector2(-1.0f, 0.0f),
                     player.body.getWorldCenter(), true);
         }
@@ -121,8 +121,7 @@ public class PlayScreen implements Screen, InputProcessor {
     public void render(float delta) {
         update(delta);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        //spriteBatch.setProjectionMatrix(camera.combined);
+        
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         renderer.render();
 
@@ -171,7 +170,10 @@ public class PlayScreen implements Screen, InputProcessor {
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.UP) {
             upPressed = true;
-            player.body.applyLinearImpulse(new Vector2(0f,17.5f), player.body.getWorldCenter(), true);
+            if(player.getState() != Mario.State.JUMPING) {
+                player.body.applyLinearImpulse(new Vector2(0f, 16.5f),
+                        player.body.getWorldCenter(), true);
+            }
         }
         if(keycode == Input.Keys.DOWN) {
             downPressed = true;
