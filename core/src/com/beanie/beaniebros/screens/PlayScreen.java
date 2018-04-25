@@ -27,6 +27,7 @@ import com.beanie.beaniebros.BeanieBros;
 import com.beanie.beaniebros.scenes.HUD;
 import com.beanie.beaniebros.sprites.Mario;
 import com.beanie.beaniebros.tools.B2WorldCreator;
+import com.beanie.beaniebros.tools.WorldContactListener;
 
 /**
  * Created by janu2 on 17/04/2018.
@@ -73,6 +74,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
         world = new World(new Vector2(0.0f,-30.01f), true);
         player = new Mario(world, this);
+
+        world.setContactListener(new WorldContactListener());
 
         debugRenderer = new Box2DDebugRenderer();
 
@@ -121,20 +124,18 @@ public class PlayScreen implements Screen, InputProcessor {
     public void render(float delta) {
         update(delta);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
         renderer.render();
 
         //debugRenderer.render(world, camera.combined);
 
-        hud.stage.draw();
-
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         player.draw(spriteBatch);
-        //spriteBatch.draw(img,0 - img.getWidth()/2,0 - img.getHeight()/2);
         spriteBatch.end();
 
+        hud.stage.draw();
     }
 
     @Override

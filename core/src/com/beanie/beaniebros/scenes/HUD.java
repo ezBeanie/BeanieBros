@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -37,6 +38,8 @@ public class HUD implements Disposable {
     Label worldLabel;
     Label marioLabel;
 
+    Actor coins;
+
     public HUD(SpriteBatch spriteBatch) {
         worldTime = 300;
         timeCount = 0;
@@ -62,6 +65,7 @@ public class HUD implements Disposable {
 
         table.add().width(24);
         table.add(marioLabel).expandX().padTop(8).left();
+        table.add()
         table.add(worldLabel).expandX().padTop(8).center();
         table.add(timeLabel).expandX().padTop(8).right();
         table.add().width(25);
