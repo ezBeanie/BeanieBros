@@ -1,2 +1,3 @@
 # BeanieBros
-recreating of the classic Mario Bros using LibGDX
+Recreation of the classic Mario Bros using LibGDX.
+UNFINISHED.
